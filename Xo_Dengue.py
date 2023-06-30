@@ -11,8 +11,8 @@ ALTURA_TELA = 720
 TAMANHO_JOGADOR = 100
 TAMANHO_MOSQUITO = 150
 TAMANHO_FOCUS = 120
-MAX_VIDAS = 1
-TEMPO_JOGO = 30  # em segundos
+MAX_VIDAS = 3
+TEMPO_JOGO = 60  # em segundos
 
 # Definição das cores utilizadas no jogo
 PRETO = (0, 0, 0)
@@ -88,7 +88,7 @@ class Botao:
         return self.retangulo.collidepoint(posicao)
 
 # Criação do botão de reiniciar
-botao_reiniciar = Botao(LARGURA_TELA // 2 - 75, ALTURA_TELA // 2 + 30, 150, 50, 'Reiniciar', VERDE)
+botao_reiniciar = Botao(LARGURA_TELA // 2 - 75, ALTURA_TELA // 2 + 60, 150, 50, 'Reiniciar', VERDE)
 
 # Criação do botão de iniciar
 botao_iniciar = Botao(LARGURA_TELA // 2 - 75, ALTURA_TELA // 2 + 50, 150, 50, 'Iniciar', VERDE)
@@ -127,11 +127,13 @@ while tela_inicial:
         tela.fill(BRANCO)
         texto_creditos = FONTE.render('Programadores:', True, PRETO)
         tela.blit(texto_creditos, (LARGURA_TELA // 2 - texto_creditos.get_width() // 2, ALTURA_TELA // 2 - 300))
-        texto_nomes = FONTE.render('Isla de Oliveira', True, PRETO)
+        texto_nomes = FONTE.render('Isla de Oliveira e Silva Santos - Matrícula: 0057602 ', True, PRETO)
+        tela.blit(texto_nomes, (LARGURA_TELA // 2 - texto_nomes.get_width() // 2, ALTURA_TELA // 2 - 200))
+        texto_nomes = FONTE.render('Paulo César Macedo Marques - Matrícula: 0048500', True, PRETO)
         tela.blit(texto_nomes, (LARGURA_TELA // 2 - texto_nomes.get_width() // 2, ALTURA_TELA // 2 - 150))
-        texto_nomes = FONTE.render('Rodrigo de Azevedo', True, PRETO)
+        texto_nomes = FONTE.render('Rodrigo de Azevedo Nascimento Filho - Matrícula: 0053432', True, PRETO)
         tela.blit(texto_nomes, (LARGURA_TELA // 2 - texto_nomes.get_width() // 2, ALTURA_TELA // 2 - 100))
-        texto_nomes = FONTE.render('Rodrigo Feliz', True, PRETO)
+        texto_nomes = FONTE.render('Rodrigo Feliciano da Costa - Matrícula: 0071965', True, PRETO)
         tela.blit(texto_nomes, (LARGURA_TELA // 2 - texto_nomes.get_width() // 2, ALTURA_TELA // 2 - 50))
         
         
@@ -141,7 +143,7 @@ while tela_inicial:
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
-                tela_inicial = False
+                tela_inicial = True
                 exibir_creditos = False
             elif evento.type == pygame.MOUSEBUTTONDOWN:
                 posicao_mouse = pygame.mouse.get_pos()
@@ -160,13 +162,13 @@ while jogando:
     # Atualização da posição do jogador com base nas teclas pressionadas
     teclas = pygame.key.get_pressed()
     if teclas[pygame.K_LEFT] and jogador_x > 0:
-        jogador_x -= 0.5
+        jogador_x -= 0.2
     if teclas[pygame.K_RIGHT] and jogador_x < LARGURA_TELA - TAMANHO_JOGADOR:
-        jogador_x += 0.5
+        jogador_x += 0.2
     if teclas[pygame.K_UP] and jogador_y > 0:
-        jogador_y -= 0.5
+        jogador_y -= 0.2
     if teclas[pygame.K_DOWN] and jogador_y < ALTURA_TELA - TAMANHO_JOGADOR:
-        jogador_y += 0.5
+        jogador_y += 0.2
 
     # Atualização da posição do mosquito de forma aleatória
     mosquito_x += random.randint(-5, 5)
@@ -227,16 +229,9 @@ while jogando:
     # Verificação do fim do jogo
     if tempo_restante == 0 or vidas == 0:
         fim_jogo = True
-
+        
     # Atualização da tela
     pygame.display.flip()
-
-    # Verificação dos eventos de fim de jogo
-    # Verificação do fim do jogo
-    
-    if tempo_restante == 0 or vidas == 0:
-        fim_jogo = True
-
 
     # Verificação dos eventos de fim de jogo
     while fim_jogo:
